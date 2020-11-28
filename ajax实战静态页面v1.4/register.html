@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>注册</title>
+	<link rel="stylesheet" href="./css/login.css">
+</head>
+
+<body>
+	<div class="lowin">
+		<div class="lowin-brand">
+			<img src="./img/kodinger.jpg" alt="logo">
+		</div>
+		<div class="lowin-wrapper">
+			<div class="lowin-box lowin-register">
+				<div class="lowin-box-inner">
+					<form>
+						<p>创建账号</p>
+						<div class="lowin-group">
+							<label>用户名</label>
+							<input type="text" name="username" autocomplete="name" class="lowin-input">
+						</div>
+						<div class="lowin-group">
+							<label>邮箱</label>
+							<input type="email" autocomplete="email" name="email" class="lowin-input">
+						</div>
+						<div class="lowin-group">
+							<label>密码</label>
+							<input type="password" name="password" autocomplete="current-password" class="lowin-input">
+						</div>
+						<div class="lowin-group">
+							<label>确认密码</label>
+							<input type="password" name="repassword" autocomplete="current-password"
+								class="lowin-input">
+						</div>
+						<button class="lowin-btn" id="register-btn" type="button">
+							注册
+						</button>
+
+						<div class="text-foot">
+							已经有账号? <a href="" class="login-link">登录</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<footer class="lowin-footer">
+
+		</footer>
+	</div>
+	<script src="./lib/jquery.min.js"></script>
+	<script src="./lib/template-web.js"></script>
+
+	<script>
+		// 1. 点击注册触发注册事件
+		// 2. 获取用户的输入
+		// 3. 发起ajax请求
+		// 4. 处理响应
+		//    如果成功：res的内容为空 则跳转到登录页面
+		//    如果失败：res不为空，切res.code 不等于2000  则提示res.msg的错误信息
+
+		$('#register-btn').click(function () {
+			var username = $('input[name=username]').val();
+			var password = $('input[name=password]').val();
+			var email = $('input[name=email]').val();
+			var data = {
+				username: username,
+				password: password,
+				email: email
+			}
+			var url = 'http://shop.meilian.info/api/member/register'
+			$.post(url, data, function (res) {
+				console.log(res);
+				if (!res) {
+					window.location = 'login.html';
+
+				} else if (res.code != 2000) {
+					alert(res.msg);
+				}
+			})
+		})
+
+	</script>
+
+</body>
+
+</html>
